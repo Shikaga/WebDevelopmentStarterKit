@@ -1,11 +1,36 @@
 <html>
-	<head>
-		<script type="text/javascript" src="js/main.js"></script>
-		<title>New Development Project</title>
-		<link rel="stylesheet" href="css/main.css">
-	</head>
-	<body>
-		<div id="testbar"><a class="testbar" href="test/test.html" target="_blank">Run the Tests!</a></div>
-		Hello World!
-	</body>
+<head>
+	<title>New Project</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script type="text/javascript" src="lib/mustache.js"></script>
+	<script type="text/javascript" src="lib/knockout.js"></script>
+	<script type="text/javascript" src="lib/ko.mustache.js"></script>
+
+	<script>
+		ko.setTemplateEngine(new ko.mustacheTemplateEngine());
+	</script>
+
+	<script id="example-template" type="text/x-handlebars-template">
+		<div>
+				<span data-bind="text: value">{{name}}</span>
+		</div>
+	</script>
+
+</head>
+
+<body>
+<div id="testbar"><a class="testbar" href="test/test.html" target="_blank">Run the Tests!</a></div>
+<span id="example" data-bind="template: { name: 'example-template', foreach: exampleArray }"></span>
+</body>
+
+<script>
+	function exampleClass() {
+		this.exampleArray = ko.observableArray([{value: 'lol'}, {value: 'example'}]);
+		ko.applyBindingsToNode(document.getElementById('example'), null, this);
+	}
+	var x = new exampleClass();
+
+</script>
+
+
 </html>
